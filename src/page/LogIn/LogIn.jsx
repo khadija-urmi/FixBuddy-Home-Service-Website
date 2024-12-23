@@ -30,6 +30,7 @@ const Login = () => {
 
         signInUser(email, password).then((result) => {
             const user = result.user;
+            console.log("user login", user);
             setUser(user);
         })
             .catch((error) => {

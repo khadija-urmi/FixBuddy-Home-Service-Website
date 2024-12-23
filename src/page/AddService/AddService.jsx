@@ -1,34 +1,69 @@
-import { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
-
+import Swal from "sweetalert2";
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
 
-    const [formData, setFormData] = useState({
-        name: "",
+    const initialFormState = {
+        serviceName: "",
         imageUrl: "",
         price: "",
-        photoURL: "",
         serviceArea: "",
-        description: ""
+        description: "",
+    };
+
+
+    const [formData, setFormData] = useState(initialFormState);
+    const [userProviderData, setUserProviderData] = useState({
+        userName: user?.displayName || "Unknown",
+        userEmail: user?.email || "",
+        userPhotoURL: user?.photoURL || "https://i.ibb.co.com/KhyjJs5/user.png"
     });
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
         const serviceData = {
             ...formData,
-            serviceProvider: {
-                userName: user?.displayName || "Anonymous",
-                userEmail: user?.email || "Not Provided",
-                userPhotoURL: user?.photoURL || "",
+            provider: {
+                userName: userProviderData?.userName,
+                userEmail: userProviderData?.userEmail,
+                userPhotoURL: userProviderData?.photoURL
             },
         };
-        console.log(serviceData);
-    }
+
+        fetch("http://localhost:5000/services", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(serviceData),
+        })
+            .then((res) => res.json())
+            .then(() => {
+                setFormData(initialFormState);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Your service has been added",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            })
+            .catch((error) => {
+                console.log(error.message);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                });
+            });
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-green-100 py-8">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
@@ -36,12 +71,12 @@ const AddService = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label htmlFor="serviceName" className="block text-gray-700">Service Title</label>
+                        <label htmlFor="imageUrl" className="block text-gray-700">Image URL</label>
                         <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
+                            type="url"
+                            id="imageUrl"
+                            name="imageUrl"
+                            value={formData.imageUrl}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
                             required
@@ -49,12 +84,12 @@ const AddService = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="imageUrl" className="block text-gray-700">Image </label>
+                        <label htmlFor="serviceName" className="block text-gray-700">Service Name</label>
                         <input
-                            type="url"
-                            id="imageUrl"
-                            name="imageUrl"
-                            value={formData.imageUrl}
+                            type="text"
+                            id="serviceName"
+                            name="serviceName"
+                            value={formData.serviceName}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
                             required
