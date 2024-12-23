@@ -27,12 +27,12 @@ const Navbar = () => {
                         <NavLink to="/" className={getNavLinkClass}>
                             Home
                         </NavLink>
-                        <NavLink to="/" className={getNavLinkClass}>
+                        <NavLink to="/service" className={getNavLinkClass}>
                             Find Service
                         </NavLink>
-                        <NavLink to="/" className={getNavLinkClass}>My Services</NavLink>
-                        <NavLink to="/" className={getNavLinkClass}>Add A Service</NavLink>
-                        <NavLink to="/" className={getNavLinkClass}>
+                        <NavLink to="/my-service" className={getNavLinkClass}>My Services</NavLink>
+                        <NavLink to="/add-service" className={getNavLinkClass}>Add A Service</NavLink>
+                        <NavLink to="/dashboard" className={getNavLinkClass}>
                             Dashboard
                         </NavLink>
                     </div>
