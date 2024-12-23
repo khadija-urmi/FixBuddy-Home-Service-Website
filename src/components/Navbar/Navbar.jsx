@@ -31,7 +31,7 @@ const Navbar = () => {
                             Find Service
                         </NavLink>
                         <NavLink to="/my-service" className={getNavLinkClass}>My Services</NavLink>
-                        <NavLink to="/add-service" className={getNavLinkClass}>Add A Service</NavLink>
+                        <NavLink to="/addService" className={getNavLinkClass}>Add A Service</NavLink>
                         <NavLink to="/dashboard" className={getNavLinkClass}>
                             Dashboard
                         </NavLink>

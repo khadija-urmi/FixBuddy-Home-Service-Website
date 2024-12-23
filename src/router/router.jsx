@@ -3,7 +3,8 @@ import MainLayout from "../components/MainLayout/MainLayout";
 import Home from "../page/Home/Home";
 import LogIn from "../page/LogIn/LogIn";
 import Register from "../page/Register/Register";
-import Service from "../page/Service/Service";
+import PrivateRoute from "./PrivateRoute";
+import AddService from "../page/AddService/AddService";
 
 
 const router = createBrowserRouter([
@@ -19,8 +20,10 @@ const router = createBrowserRouter([
             element: <LogIn></LogIn>
         },
         {
-            path: "/service",
-            element: <Service></Service>
+            path: "/addService",
+            element: <PrivateRoute>
+                <AddService></AddService>
+            </PrivateRoute>
         },
         {
             path: "/register",
