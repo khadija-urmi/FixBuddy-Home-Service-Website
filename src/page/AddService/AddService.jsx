@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import Swal from "sweetalert2";
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
+    console.log("user", user);
 
     const initialFormState = {
         serviceName: "",
@@ -13,13 +14,7 @@ const AddService = () => {
         description: "",
     };
 
-
     const [formData, setFormData] = useState(initialFormState);
-    const [userProviderData, setUserProviderData] = useState({
-        userName: user?.displayName || "Unknown",
-        userEmail: user?.email || "",
-        userPhotoURL: user?.photoURL || "https://i.ibb.co.com/KhyjJs5/user.png"
-    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,9 +27,9 @@ const AddService = () => {
         const serviceData = {
             ...formData,
             provider: {
-                userName: userProviderData?.userName,
-                userEmail: userProviderData?.userEmail,
-                userPhotoURL: userProviderData?.photoURL
+                userName: user?.displayName,
+                userEmail: user?.email,
+                userPhotoURL: user?.photoURL
             },
         };
 
@@ -53,6 +48,7 @@ const AddService = () => {
                     showConfirmButton: false,
                     timer: 1500,
                 });
+                console.log("full services info", serviceData)
             })
             .catch((error) => {
                 console.log(error.message);

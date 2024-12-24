@@ -5,6 +5,7 @@ import loginLottie from "../../assets/lottie/login.json";
 import { AuthContext } from "../../context/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const { setUser, signInUser, signWithGoogle } = useContext(AuthContext);
@@ -13,11 +14,6 @@ const Login = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
-    console.log('in signIn page', location)
-    const from = location.state || '/';
-    console.log("navigation ", navigate);
-    console.log("from data", from);
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,25 +24,43 @@ const Login = () => {
         e.preventDefault();
         const { email, password } = formData;
 
-        signInUser(email, password).then((result) => {
-            const user = result.user;
-            console.log("user login", user);
-            setUser(user);
-        })
-            .catch((error) => {
-                setError(error.message);
-            });
-    };
-
-    const handleGoogleLogin = () => {
-        signWithGoogle()
+        signInUser(email, password)
             .then((result) => {
                 const user = result.user;
+                console.log("user login", user);
                 setUser(user);
             })
             .catch((error) => {
-                setError("Google Login Error:", error.message);
+                console.log("Firebase Error Code:", error.code);
+                console.log("Firebase Error Message:", error.message);
+                setError(`Login failed: ${error.message}`);
             });
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await signWithGoogle();
+            const user = result.user;
+            setUser(user);
+            console.log("User logged in:", user);
+            setError("");
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Login successful!",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            navigate(location?.state?.from || "/");
+        } catch (error) {
+            console.log("Google Login Error:", error.message);
+            setError("Login failed: " + error.message);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Google login failed: " + error.message,
+            });
+        }
     };
 
     return (
@@ -110,7 +124,7 @@ const Login = () => {
                         </div>
                     </div>
                     <button
-                        onClick={handleGoogleLogin}
+                        onClick={handleGoogleSignIn}
                         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-500 mt-4 flex items-center justify-center space-x-2"
                     >
                         <FaGoogle className="w-5 h-5" />

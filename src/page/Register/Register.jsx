@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 
+
 const Register = () => {
-    const { setUser, createUser } = useContext(AuthContext);
+    const { setUser, createUser, updateUserProfile } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -43,10 +44,21 @@ const Register = () => {
                 const user = result.user;
                 setUser(user);
                 console.log(user);
+                return updateUserProfile({ displayName: name, photoURL: photoURL });
+            })
+            .then(() => {
+                setUser((prevUser) => ({
+                    ...prevUser,
+                    displayName: name || "Anonymous",
+                    photoURL: photoURL || "https://i.ibb.co.com/k5R5ZTy/user-6380868-1280.webp",
+                }));
+                console.log("Profile updated successfully!");
+                setError("");
             })
             .catch((error) => {
                 setError(error.message);
             })
+
     }
 
     return (
@@ -56,7 +68,7 @@ const Register = () => {
                     Register
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name Field */}
+
                     <div>
                         <label
                             htmlFor="name"
@@ -74,7 +86,7 @@ const Register = () => {
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
-                    {/* Email Field */}
+
                     <div>
                         <label
                             htmlFor="email"
@@ -92,7 +104,7 @@ const Register = () => {
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
-                    {/* Password Field */}
+
                     <div>
                         <label
                             htmlFor="password"
@@ -110,7 +122,7 @@ const Register = () => {
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
-                    {/* Photo URL Field */}
+
                     <div>
                         <label
                             htmlFor="photoURL"
@@ -128,7 +140,7 @@ const Register = () => {
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
-                    {/* Submit Button */}
+
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

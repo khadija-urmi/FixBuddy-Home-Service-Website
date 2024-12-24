@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const googleAuthProvider = new GoogleAuthProvider();
+
 
 
     const createUser = (email, password) => {
@@ -23,8 +23,13 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
     const signWithGoogle = () => {
+        const googleAuthProvider = new GoogleAuthProvider()
         return signInWithPopup(auth, googleAuthProvider);
+
     }
+    const updateUserProfile = (profileData) => {
+        return updateProfile(auth.currentUser, profileData);
+    };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -34,7 +39,7 @@ const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
-    const userInfo = { user, setUser, loading, createUser, signInUser, logOut, signWithGoogle }
+    const userInfo = { user, setUser, loading, createUser, signInUser, logOut, signWithGoogle, updateUserProfile };
 
     return (
         <div>
