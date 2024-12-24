@@ -1,11 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
-import { IoMenu } from "react-icons/io5";
+import { IoClose, IoMenu } from "react-icons/io5";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
     const getNavLinkClass = ({ isActive }) => {
         return isActive
             ? "text-blue-600 border-b-2 border-blue-600"
@@ -21,6 +26,43 @@ const Navbar = () => {
                             FixBuddy
                         </NavLink>
                     </div>
+                    <div className="md:hidden">
+                        <button onClick={toggleMenu} className="text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                            {menuOpen ? (
+                                <IoClose className="w-8 h-8" />
+                            ) : (
+                                <IoMenu className="w-8 h-8" />
+                            )}
+                        </button>
+                    </div>
+                    {menuOpen && (
+                        <div className="absolute top-16 right-0 w-52 bg-blue-400 shadow-lg md:hidden">
+                            <div className="flex flex-col items-center py-4">
+                                <NavLink
+                                    to="/home"
+                                    className={getNavLinkClass}>
+                                    Home
+                                </NavLink>
+                                <NavLink
+                                    to="/about"
+                                    className={getNavLinkClass}>
+                                    About
+                                </NavLink>
+                                <NavLink
+                                    to="/services"
+                                    className={getNavLinkClass}
+                                >
+                                    Services
+                                </NavLink>
+                                <NavLink
+                                    to="/contact"
+                                    className={getNavLinkClass}
+                                >
+                                    Contact
+                                </NavLink>
+                            </div>
+                        </div>
+                    )}
                     <div className="hidden md:flex items-center space-x-8">
                         <NavLink to="/" className={getNavLinkClass}>
                             Home
@@ -79,11 +121,7 @@ const Navbar = () => {
                         )}
                     </div>
 
-                    <div className="md:hidden">
-                        <button className="text-gray-800 hover:text-blue-600 transition-colors duration-300">
-                            <IoMenu className="w-8 h-8" />
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </nav>
