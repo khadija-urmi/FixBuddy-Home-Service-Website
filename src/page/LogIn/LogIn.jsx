@@ -29,11 +29,22 @@ const Login = () => {
                 const user = result.user;
                 console.log("user login", user);
                 setUser(user);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Login successful!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                navigate(location?.state?.from || "/");
             })
             .catch((error) => {
-                console.log("Firebase Error Code:", error.code);
-                console.log("Firebase Error Message:", error.message);
                 setError(`Login failed: ${error.message}`);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Google login failed: " + error.message,
+                });
             });
     };
 

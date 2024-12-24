@@ -5,6 +5,7 @@ import LogIn from "../page/LogIn/LogIn";
 import Register from "../page/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import AddService from "../page/AddService/AddService";
+import AllServices from "../page/AllServices/AllServices";
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             element: <PrivateRoute>
                 <AddService></AddService>
             </PrivateRoute>
+        },
+        {
+            path: "/allServices",
+            element: <AllServices></AllServices>,
         },
         {
             path: "/register",

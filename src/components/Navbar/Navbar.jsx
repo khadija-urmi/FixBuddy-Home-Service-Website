@@ -67,10 +67,10 @@ const Navbar = () => {
                         <NavLink to="/" className={getNavLinkClass}>
                             Home
                         </NavLink>
-                        <NavLink to="/service" className={getNavLinkClass}>
+                        <NavLink to="/allServices" className={getNavLinkClass}>
                             Find Service
                         </NavLink>
-                        <NavLink to="/my-service" className={getNavLinkClass}>My Services</NavLink>
+                        <NavLink to="/myServices" className={getNavLinkClass}>My Services</NavLink>
                         <NavLink to="/addService" className={getNavLinkClass}>Add A Service</NavLink>
                         <NavLink to="/dashboard" className={getNavLinkClass}>
                             Dashboard
