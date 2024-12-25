@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
@@ -33,12 +34,9 @@ const AddService = () => {
             },
         };
 
-        fetch("http://localhost:5000/services", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(serviceData),
+        axios.post("http://localhost:5000/services", serviceData, {
+            headers: { "Content-Type": "application/json" }
         })
-            .then((res) => res.json())
             .then(() => {
                 setFormData(initialFormState);
                 Swal.fire({

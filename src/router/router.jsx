@@ -7,6 +7,10 @@ import PrivateRoute from "./PrivateRoute";
 import AddService from "../page/AddService/AddService";
 import AllServices from "../page/AllServices/AllServices";
 import ServiceDetail from "../page/ServiceDetail/ServiceDetail";
+import ManageService from "../page/ManageService/ManageService";
+import BookedServices from "../page/BookedServices/BookedServices";
+import ServiceToDo from "../page/Service-To-Do/ServiceToDo";
+import Dashboard from "../page/Dashboard/Dashboard";
 
 
 const router = createBrowserRouter([
@@ -43,6 +47,23 @@ const router = createBrowserRouter([
                 }
                 return response.json();
             }
+        },
+        {
+            path: '/dashboard',
+            element: <Dashboard></Dashboard>
+        }
+            ,
+        {
+            path: "/manageService",
+            element: <ManageService></ManageService>
+        },
+        {
+            path: "/bookedServices",
+            element: <BookedServices></BookedServices>
+        },
+        {
+            path: "/serviceToDo",
+            element: <ServiceToDo></ServiceToDo>
         },
         {
             path: "/register",
