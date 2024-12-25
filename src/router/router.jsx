@@ -6,6 +6,7 @@ import Register from "../page/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import AddService from "../page/AddService/AddService";
 import AllServices from "../page/AllServices/AllServices";
+import ServiceDetail from "../page/ServiceDetail/ServiceDetail";
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,19 @@ const router = createBrowserRouter([
         {
             path: "/allServices",
             element: <AllServices></AllServices>,
+        },
+        {
+            path: "/services/:id",
+            element: <PrivateRoute>
+                <ServiceDetail></ServiceDetail>
+            </PrivateRoute>,
+            loader: async ({ params }) => {
+                const response = await fetch(`http://localhost:5000/services/${params.id}`)
+                if (!response.ok) {
+                    throw new Error("Failed to fetch movies");
+                }
+                return response.json();
+            }
         },
         {
             path: "/register",

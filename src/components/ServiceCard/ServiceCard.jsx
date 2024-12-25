@@ -1,20 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const ServiceCard = ({ service }) => {
+    const navigate = useNavigate();
+    const handleSeeDetails = (id) => {
+        navigate(`/services/${id}`);
+    };
     return (
         <div className="bg-white rounded-lg shadow-md p-6">
             {/* Image */}
-            <img
-                src={service.imageUrl}
-                alt={service.serviceName}
-                className="w-full rounded-lg mb-4"
-            />
-
+            <div className="w-full h-48 overflow-hidden rounded-lg mb-4">
+                <img
+                    src={service.imageUrl}
+                    alt={service.serviceName}
+                    className="w-full h-full object-cover"
+                />
+            </div>
             <div>
                 {/*  Name */}
                 <h3 className="text-xl font-semibold">{service.serviceName}</h3>
-
                 {/*  Description */}
                 <p className="text-sm text-gray-600 mt-2">
                     {service.description.length > 100
@@ -22,10 +26,7 @@ const ServiceCard = ({ service }) => {
                         : service.description}
                 </p>
 
-                {/* Provider Information */}
-
                 <div className="mt-4 flex items-center">
-
                     <img
                         src={service.provider.userPhotoURL}
                         alt={service.provider.userName}
@@ -36,16 +37,12 @@ const ServiceCard = ({ service }) => {
                         <p className="text-sm text-gray-500">{service.provider.userEmail}</p>
                     </div>
                 </div>
-
-                {/* Price and View Detail Button */}
                 <div className="flex justify-between mt-4">
                     <p className="text-lg font-semibold">Price: {service.price} BDT</p>
-                    <NavLink
-                        to={`/service-detail/${service.id}`}
-                        className="text-blue-600 hover:underline"
+                    <button onClick={() => handleSeeDetails(service._id)} className="text-blue-600 hover:underline"
                     >
                         View Detail
-                    </NavLink>
+                    </button>
                 </div>
             </div>
         </div>

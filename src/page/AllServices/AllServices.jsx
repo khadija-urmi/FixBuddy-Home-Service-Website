@@ -16,6 +16,7 @@ const AllServices = () => {
                 console.error("Error fetching services:", error);
             });
     }, []);
+
     return (
         <div className="bg-gray-100 min-h-screen py-4">
             <div className="container mx-auto mt-8">
@@ -25,7 +26,7 @@ const AllServices = () => {
                             <ServiceCard key={service.id} service={service} />
                         ))
                     ) : (
-                        <p>Loading services...</p>
+                        <p>Loading services...{loading}</p>
                     )}
                 </div>
             </div>
