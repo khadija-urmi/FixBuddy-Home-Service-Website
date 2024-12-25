@@ -2,28 +2,67 @@
 import { useContext } from "react";
 import { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import Modal from 'react-modal';
+import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const ServiceDetail = () => {
     const { user } = useContext(AuthContext);
-
+    const navigate = useNavigate();
     const singleServiceData = useLoaderData();
-    // const navigate = useNavigate();
-    const [modalOpen, setModalOpen] = useState(false);
+    const { serviceName, description, price, imageUrl, provider, serviceArea } = singleServiceData;
 
+    const [modalOpen, setModalOpen] = useState(false);
     const currentUser = {
         email: user.email,
         name: user.displayName,
     };
-
-    const { serviceName, description, price, imageUrl, provider, serviceArea } = singleServiceData;
-    const handlePurchase = (e) => {
+    const handlePurchase = async (e) => {
         e.preventDefault();
         console.log("Purchase form submitted");
-    }
+        const bookingData = {
+            serviceId: singleServiceData._id,
+            serviceName: serviceName,
+            serviceImage: imageUrl,
+            providerEmail: provider?.userEmail,
+            providerName: provider?.userName,
+            currentUserEmail: currentUser.email,
+            currentUserName: currentUser.name,
+            serviceTakingDate: e.target.serviceTakingDate.value,
+            specialInstruction: e.target.specialInstruction.value,
+            price: price,
+            serviceStatus: "pending",
+        };
+        console.log("Booking data: ", bookingData);
+        axios.post("http://localhost:5000/booking", bookingData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(() => {
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Your service has been booked",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                navigate("/allServices");
+            })
+            .catch((error) => {
+                console.log(error.message);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                })
+
+            });
+    };
+
     return (
         <div className="card container max-w-3xl mx-auto bg-base-200 shadow-xl mt-6 p-4">
             <h2 className="text-2xl font-bold mb-6">{serviceName || "Service Details"}</h2>
@@ -48,10 +87,10 @@ const ServiceDetail = () => {
                         </div>
                     </div>
                     {/* Service Details */}
-                    <p className="text-black font-bold mb-4">
-                        <IoLocationOutline className="w-8 h-8" />Service Area:
-                        <span className="text-gray-700 font-medium">{serviceArea || "N/A"}</span>
-                    </p>
+                    <div className="text-black font-bold mb-4 flex items-center">
+                        <IoLocationOutline className="w-5 h-5" />Service Area:
+                        <span className="text-gray-700 font-medium px-2">{serviceArea || "N/A"}</span>
+                    </div>
                     <p className="text-black font-bold mb-4">
                         Price: <span className="text-gray-700 font-medium">{price || "N/A"} BDT</span>
                     </p>
