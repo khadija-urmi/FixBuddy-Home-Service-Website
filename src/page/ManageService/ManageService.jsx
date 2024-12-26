@@ -39,12 +39,10 @@ const ManageService = () => {
                 specialInstruction: e.target.specialInstruction.value,
             };
 
-            const response = await axios.put(
+            await axios.put(
                 `http://localhost:5000/booking/${editingService._id}`,
                 updatedData
             );
-
-            // Update the UI with the edited booking
             setBookings((prev) =>
                 prev.map((booking) =>
                     booking._id === editingService._id
@@ -53,7 +51,7 @@ const ManageService = () => {
                 )
             );
 
-            setIsModalOpen(false); // Close modal
+            setIsModalOpen(false);
             Swal.fire("Updated!", "Your booking has been updated.", "success");
         } catch (error) {
             console.error("Failed to update booking:", error);
@@ -76,9 +74,7 @@ const ManageService = () => {
 
     const handleConfirm = async (id) => {
         try {
-            const response = await axios.put(`http://localhost:5000/booking/${id}`, {
-                serviceStatus: "booked",
-            });
+            const response = await axios.put(`http://localhost:5000/booking/booked/${id}`);
 
             if (response.status === 200) {
                 Swal.fire({
@@ -88,13 +84,7 @@ const ManageService = () => {
                     showConfirmButton: false,
                     timer: 1500,
                 });
-                setBookings((prev) =>
-                    prev.map((booking) =>
-                        booking._id === id
-                            ? { ...booking, serviceStatus: "booked" }
-                            : booking
-                    )
-                );
+                setBookings((prev) => prev.filter((booking) => booking._id !== id));
             }
         } catch (error) {
             console.error("Failed to confirm service:", error);
@@ -105,7 +95,6 @@ const ManageService = () => {
             });
         }
     };
-
 
     if (loading) {
         return <p>Loading your bookings...</p>;
