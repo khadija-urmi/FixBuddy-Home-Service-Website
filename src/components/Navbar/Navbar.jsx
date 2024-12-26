@@ -74,11 +74,6 @@ const Navbar = () => {
                                                             Booked Services
                                                         </NavLink>
                                                     </li>
-                                                    <li>
-                                                        <NavLink to="/serviceToDo" className="text-blue-600 hover:bg-slate-300" onClick={closeMenu}>
-                                                            Service-To-Do
-                                                        </NavLink>
-                                                    </li>
                                                 </ul>
                                             )}
                                         </div>
@@ -138,11 +133,7 @@ const Navbar = () => {
                                                 Booked Services
                                             </NavLink>
                                         </li>
-                                        <li>
-                                            <NavLink to="/serviceToDo" className="text-blue-600 hover:bg-slate-300" onClick={closeMenu}>
-                                                Service-To-Do
-                                            </NavLink>
-                                        </li>
+
                                     </ul>
                                 )}
                             </li>

@@ -70,11 +70,6 @@ const router = createBrowserRouter([
             meta: { title: "BookedServices" }
         },
         {
-            path: "/serviceToDo",
-            element: <ServiceToDo></ServiceToDo>,
-            meta: { title: "Service-To-Do" }
-        },
-        {
             path: "/register",
             element: <Register></Register>,
             meta: { title: "Register" }

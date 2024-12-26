@@ -52,6 +52,7 @@ const Register = () => {
             const response = await axios.post("http://localhost:5000/register", {
                 name,
                 email,
+                password
             });
 
             if (response.status === 200) {
