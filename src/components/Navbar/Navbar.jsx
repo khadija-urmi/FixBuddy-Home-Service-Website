@@ -129,6 +129,11 @@ const Navbar = () => {
                                             </NavLink>
                                         </li>
                                         <li>
+                                            <NavLink to="/manageService" className="text-blue-600 hover:bg-slate-300" onClick={closeMenu}>
+                                                Manage Services
+                                            </NavLink>
+                                        </li>
+                                        <li>
                                             <NavLink to="/bookedServices" className="text-blue-600 hover:bg-slate-300" onClick={closeMenu}>
                                                 Booked Services
                                             </NavLink>

@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "axios";
+
 
 const Login = () => {
     const { setUser, signInUser, signWithGoogle } = useContext(AuthContext);
@@ -55,12 +55,6 @@ const Login = () => {
             const user = result.user;
             setUser(user);
             console.log("User logged in:", user);
-
-            await axios.post("http://localhost:5000/register", {
-                name: user.displayName,
-                email: user.email,
-            });
-            setError("");
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -87,7 +81,8 @@ const Login = () => {
             </div>
             {/* Login Form */}
             <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-100 p-6">
-                <div className="w-full max-w-md bg-white rounded-lg shadow-lg shadow-blue-300 p-6">
+                <div className="w-full max-w-md bg-white rounded-lg 
+                shadow-lg shadow-blue-300 p-6">
                     <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
                         Log In
                     </h2>

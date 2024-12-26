@@ -53,11 +53,12 @@ const ServiceDetail = () => {
                 navigate("/allServices");
             })
             .catch((error) => {
-                console.log(error.message);
+                const errorMessage = error.response?.data?.message || "Something went wrong!";
+                console.error("Error:", errorMessage);
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Something went wrong!",
+                    text: errorMessage,
                 })
 
             });

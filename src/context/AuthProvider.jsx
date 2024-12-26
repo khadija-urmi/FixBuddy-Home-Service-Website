@@ -4,6 +4,7 @@ import auth from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import PropTypes from "prop-types";
 
+
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -42,18 +43,11 @@ const AuthProvider = ({ children }) => {
         });
         return () => unsubscribe();
     }, []);
-    const getIdToken = async () => {
-        if (auth.currentUser) {
-            return await auth.currentUser.getIdToken();
-        } else {
-            throw new Error("No authenticated user found");
-        }
-    };
 
     const userInfo = {
         user, setUser, loading,
         createUser, signInUser, logOut, signWithGoogle,
-        updateUserProfile, getIdToken
+        updateUserProfile
     };
 
     return (
