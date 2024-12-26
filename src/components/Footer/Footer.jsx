@@ -1,6 +1,6 @@
 
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/home-logo.jpg"
 
 
 const Footer = () => {
@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6 md:px-16 lg:px-32">
                 <div>
                     <div className="flex  space-x-4 mb-4">
-                        <img src={logo} className="w-10 h-10 rounded-full" />
+                        <img src={logo} className="w-12 h-12 rounded-md" />
                         <h2 className="text-2xl font-bold mb-4">FixBuddy</h2>
                     </div>
                     <p className="mb-2">Location: block-C,Gulshan-165, Dhaka</p>

@@ -1,15 +1,21 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Register = () => {
-    const { setUser, createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
         photoURL: "",
     });
+
+    const navigate = useNavigate();
     const [error, setError] = useState("");
 
     const handleChange = (e) => {
@@ -26,7 +32,7 @@ const Register = () => {
         if (!hasPasswordLength) return "Password must be at least 6 characters long.";
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form Submitted:", formData);
         const { name, email, password, photoURL } = formData;
@@ -38,27 +44,37 @@ const Register = () => {
             return;
         }
         setError("");
+        try {
+            await createUser(email, password);
+            await updateUserProfile({ displayName: name, email: email });
 
-        createUser(email, password)
-            .then((result) => {
-                const user = result.user;
-                setUser(user);
-                console.log(user);
-                return updateUserProfile({ displayName: name, photoURL: photoURL });
-            })
-            .then(() => {
-                setUser((prevUser) => ({
-                    ...prevUser,
-                    displayName: name || "Anonymous",
-                    photoURL: photoURL || "https://i.ibb.co.com/k5R5ZTy/user-6380868-1280.webp",
-                }));
-                console.log("Profile updated successfully!");
-                setError("");
-            })
-            .catch((error) => {
-                setError(error.message);
-            })
+            //add new user in db
+            const response = await axios.post("http://localhost:5000/register", {
+                name,
+                email,
+            });
 
+            if (response.status === 200) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Registration Successful!",
+                    text: "Your details have been saved.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                setFormData({ name: "", email: "", password: "", photoURL: "" });
+                navigate("/");
+            }
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || err.message || "Registration failed.";
+            setError(errorMessage);
+
+            Swal.fire({
+                icon: "error",
+                title: "Registration Failed",
+                text: errorMessage,
+            });
+        }
     }
 
     return (
@@ -152,6 +168,7 @@ const Register = () => {
                     <div className="mt-4 text-sm
                      text-red-600">{error}</div>
                 )}
+
             </div>
         </div>
     );

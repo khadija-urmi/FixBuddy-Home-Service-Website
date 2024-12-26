@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.png";
 import { IoClose, IoMenu } from "react-icons/io5";
+import logo from "../../assets/home-logo.jpg"
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -65,6 +65,11 @@ const Navbar = () => {
                                                         </NavLink>
                                                     </li>
                                                     <li>
+                                                        <NavLink to="/manageService" className="text-blue-600 hover:bg-slate-300" onClick={closeMenu}>
+                                                            Manage Services
+                                                        </NavLink>
+                                                    </li>
+                                                    <li>
                                                         <NavLink to="/bookedServices" className="text-blue-600 hover:bg-slate-300" onClick={closeMenu}>
                                                             Booked Services
                                                         </NavLink>
@@ -89,7 +94,7 @@ const Navbar = () => {
                         )}
                     </div>
                     <div className="flex-shrink-0 flex items-center space-x-2">
-                        <img src={logo} alt="logo" className="w-10 h-10 rounded-full" />
+                        <img src={logo} alt="logo" className="w-12 h-12 rounded-full" />
                         <NavLink to="/" className="text-2xl font-bold text-white">
                             FixBuddy
                         </NavLink>
@@ -169,11 +174,18 @@ const Navbar = () => {
                                 </button>
                             </div>
                         ) : (
-                            <NavLink to="/login">
-                                <button className="bg-btn_primary hover:bg-btn_primary_hover text-white px-4 py-2 rounded-md transition-colors duration-300">
-                                    Login
-                                </button>
-                            </NavLink>
+                            <>
+                                <NavLink to="/login">
+                                    <button className="bg-btn_primary hover:bg-btn_primary_hover text-white px-4 py-2 rounded-md transition-colors duration-300">
+                                        Login
+                                    </button>
+                                </NavLink>
+                                <NavLink to="/register">
+                                    <button className="bg-btn_primary hover:bg-btn_primary_hover text-white px-4 py-2 rounded-md transition-colors duration-300">
+                                        Register
+                                    </button>
+                                </NavLink>
+                            </>
                         )}
                     </div>
                 </div>

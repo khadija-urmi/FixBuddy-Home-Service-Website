@@ -31,6 +31,7 @@ const AuthProvider = ({ children }) => {
 
     }
     const updateUserProfile = (profileData) => {
+        console.log("profile data", profileData);
         return updateProfile(auth.currentUser, profileData);
     };
 
@@ -41,8 +42,19 @@ const AuthProvider = ({ children }) => {
         });
         return () => unsubscribe();
     }, []);
+    const getIdToken = async () => {
+        if (auth.currentUser) {
+            return await auth.currentUser.getIdToken();
+        } else {
+            throw new Error("No authenticated user found");
+        }
+    };
 
-    const userInfo = { user, setUser, loading, createUser, signInUser, logOut, signWithGoogle, updateUserProfile };
+    const userInfo = {
+        user, setUser, loading,
+        createUser, signInUser, logOut, signWithGoogle,
+        updateUserProfile, getIdToken
+    };
 
     return (
         <div>
