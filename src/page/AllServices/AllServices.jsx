@@ -19,7 +19,7 @@ const AllServices = () => {
 
     return (
         <div className="bg-gray-100 min-h-screen py-4">
-            <div className="container mx-auto mt-8">
+            <div className="container mx-auto mt-4">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {services.length > 0 ? (
                         services.map((service) => (
