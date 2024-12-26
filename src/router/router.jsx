@@ -20,26 +20,31 @@ const router = createBrowserRouter([
         children: [{
             path: "/",
             element: <Home></Home>,
+            meta: { title: "Home - FixBuddy" }
         },
         {
             path: "/login",
-            element: <LogIn></LogIn>
+            element: <LogIn></LogIn>,
+            meta: { title: "LogIn" }
         },
         {
             path: "/addService",
             element: <PrivateRoute>
                 <AddService></AddService>
-            </PrivateRoute>
+            </PrivateRoute>,
+            meta: { title: "Add Service" }
         },
         {
             path: "/allServices",
             element: <AllServices></AllServices>,
+            meta: { title: "AllService" }
         },
         {
             path: "/services/:id",
             element: <PrivateRoute>
                 <ServiceDetail></ServiceDetail>
             </PrivateRoute>,
+            meta: { title: "ServiceDetail" },
             loader: async ({ params }) => {
                 const response = await fetch(`http://localhost:5000/services/${params.id}`)
                 if (!response.ok) {
@@ -50,24 +55,29 @@ const router = createBrowserRouter([
         },
         {
             path: '/dashboard',
-            element: <Dashboard></Dashboard>
+            element: <Dashboard></Dashboard>,
+            meta: { title: "Dashboard" }
         }
             ,
         {
             path: "/manageService",
-            element: <ManageService></ManageService>
+            element: <ManageService></ManageService>,
+            meta: { title: "ManageService" }
         },
         {
             path: "/bookedServices",
-            element: <BookedServices></BookedServices>
+            element: <BookedServices></BookedServices>,
+            meta: { title: "BookedServices" }
         },
         {
             path: "/serviceToDo",
-            element: <ServiceToDo></ServiceToDo>
+            element: <ServiceToDo></ServiceToDo>,
+            meta: { title: "Service-To-Do" }
         },
         {
             path: "/register",
-            element: <Register></Register>
+            element: <Register></Register>,
+            meta: { title: "Register" }
         },
         ],
     }

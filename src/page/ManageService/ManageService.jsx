@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../context/AuthProvider";
+import NoDataFound from "../../components/NoDataFound/NoDataFound";
 
 const ManageService = () => {
     const { user } = useContext(AuthContext);
@@ -96,6 +97,9 @@ const ManageService = () => {
         }
     };
 
+    if (bookings.length === 0) {
+        return <NoDataFound></NoDataFound>;
+    }
     if (loading) {
         return <p>Loading your bookings...</p>;
     }

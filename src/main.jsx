@@ -4,14 +4,17 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './router/router'
 import AuthProvider from './context/AuthProvider'
+import DynamicTitle from './components/DynamicTitle/DynamicTitle'
 
 
 createRoot(document.getElementById('root')).render(
 
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router}>
+        <DynamicTitle />
+      </RouterProvider>
     </AuthProvider>
-  </StrictMode>,
+  </StrictMode >,
 
 )

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthProvider";
+import NoDataFound from "../../components/NoDataFound/NoDataFound";
 
 const BookedServices = () => {
     const { user } = useContext(AuthContext);
@@ -27,7 +28,7 @@ const BookedServices = () => {
     }
 
     if (bookedServices.length === 0) {
-        return <p>No booked services found.</p>;
+        return <NoDataFound></NoDataFound>;
     }
 
     return (
