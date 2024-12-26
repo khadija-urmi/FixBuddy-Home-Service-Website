@@ -8,10 +8,11 @@ const AllServices = () => {
     const { loading } = useContext(AuthContext);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/services")
+        axios.get("
+https://home-repair-server.vercel.app/services")
             .then((res) => {
-                setServices(res.data);
-            })
+            setServices(res.data);
+        })
             .catch((error) => {
                 console.error("Error fetching services:", error);
             });

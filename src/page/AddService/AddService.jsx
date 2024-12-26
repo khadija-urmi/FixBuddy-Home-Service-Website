@@ -34,7 +34,7 @@ const AddService = () => {
             },
         };
 
-        axios.post("http://localhost:5000/services", serviceData, {
+        axios.post("https://home-repair-server.vercel.app/services", serviceData, {
             headers: { "Content-Type": "application/json" }
         })
             .then(() => {

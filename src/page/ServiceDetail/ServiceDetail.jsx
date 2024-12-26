@@ -37,7 +37,8 @@ const ServiceDetail = () => {
             serviceStatus: "pending",
         };
         console.log("Booking data: ", bookingData);
-        axios.post("http://localhost:5000/booking", bookingData, {
+        axios.post("
+https://home-repair-server.vercel.app/booking", bookingData, {
             headers: {
                 "Content-Type": "application/json",
             },

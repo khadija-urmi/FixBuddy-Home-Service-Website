@@ -45,7 +45,8 @@ const router = createBrowserRouter([
             </PrivateRoute>,
             meta: { title: "ServiceDetail" },
             loader: async ({ params }) => {
-                const response = await fetch(`http://localhost:5000/services/${params.id}`)
+                const response = await fetch(`
+https://home-repair-server.vercel.app/services/${params.id}`)
                 if (!response.ok) {
                     throw new Error("Failed to fetch movies");
                 }

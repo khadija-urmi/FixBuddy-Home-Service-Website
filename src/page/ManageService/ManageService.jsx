@@ -15,7 +15,8 @@ const ManageService = () => {
         const fetchBookings = async () => {
             try {
                 const userEmail = user.email;
-                const response = await axios.get(`http://localhost:5000/booking/${userEmail}`);
+                const response = await axios.get(`
+https://home-repair-server.vercel.app/booking/${userEmail}`);
                 console.log("Bookings fetched:", response.data);
                 setBookings(response.data);
                 setLoading(false);
@@ -41,7 +42,8 @@ const ManageService = () => {
             };
 
             await axios.put(
-                `http://localhost:5000/booking/${editingService._id}`,
+                `
+https://home-repair-server.vercel.app/booking/${editingService._id}`,
                 updatedData
             );
             setBookings((prev) =>
@@ -63,7 +65,8 @@ const ManageService = () => {
         const confirm = window.confirm("Are you sure you want to delete this booking?");
         if (confirm) {
             try {
-                await axios.delete(`http://localhost:5000/booking/${id}`);
+                await axios.delete(`
+https://home-repair-server.vercel.app/booking/${id}`);
                 setBookings((prev) => prev.filter((booking) => booking._id !== id));
                 Swal.fire("Deleted!", "Your booking has been deleted.", "success");
             } catch (error) {
@@ -75,7 +78,8 @@ const ManageService = () => {
 
     const handleConfirm = async (id) => {
         try {
-            const response = await axios.put(`http://localhost:5000/booking/booked/${id}`);
+            const response = await axios.put(`
+https://home-repair-server.vercel.app/booking/booked/${id}`);
 
             if (response.status === 200) {
                 Swal.fire({

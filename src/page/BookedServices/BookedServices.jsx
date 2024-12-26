@@ -11,7 +11,8 @@ const BookedServices = () => {
     useEffect(() => {
         const fetchBookedServices = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/bookedServices/${user.email}`);
+                const response = await axios.get(`
+https://home-repair-server.vercel.app/bookedServices/${user.email}`);
                 setBookedServices(response.data);
                 setLoading(false);
             } catch (error) {
