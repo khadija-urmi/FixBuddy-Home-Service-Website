@@ -5,7 +5,7 @@ import img3 from "../../assets/resources.png";
 const Statistics = () => {
   return (
     <div className="w-full lg:w-10/12 mx-auto px-4 lg:px-8 py-6 mt-16">
-      <div className="divider divider-accent text-3xl font-bold text-center">
+      <div className="w-2/4 mx-auto divider divider-accent text-3xl font-bold text-center">
         <span className="text-blue-500 ">8 Years</span>Journey We Have
       </div>
       <div className="w-full mx-auto stats shadow-lg mt-8">

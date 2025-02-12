@@ -11,7 +11,7 @@ import ManageService from "../page/ManageService/ManageService";
 import BookedServices from "../page/BookedServices/BookedServices";
 import Dashboard from "../page/Dashboard/Dashboard";
 import ContactUs from "../page/ContactUs/ContactUs";
-import Blog from "../components/Blog/Blog";
+import Blog from "../page/Blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "blog",
-        element: <Blog></Blog>,
+        element: (
+          <PrivateRoute>
+            <Blog></Blog>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/addService",

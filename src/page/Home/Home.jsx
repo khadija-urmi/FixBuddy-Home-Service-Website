@@ -8,15 +8,15 @@ const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      {/* <div>
-        <h3 className="text-3xl font-bold text-center mt-24">
+      <div className="w-11/12 mx-auto">
+        <h3 className="divider divider-accent w-2/6 mx-auto text-3xl font-bold text-center mt-16 mb-8">
           Available Services
         </h3>
         <AllServices />
-      </div> */}
+      </div>
       <Statistics></Statistics>
-      <CustomerReview></CustomerReview>
       <ChooseUsSection></ChooseUsSection>
+      <CustomerReview></CustomerReview>
     </div>
   );
 };
