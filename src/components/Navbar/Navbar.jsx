@@ -68,8 +68,8 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/my-profile" className={getNavLinkClass}>
-                    My Profile
+                  <NavLink to="/blog" className={getNavLinkClass}>
+                    Blogs
                   </NavLink>
                 </li>
                 {user ? (
