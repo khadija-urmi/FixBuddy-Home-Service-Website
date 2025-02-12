@@ -10,72 +10,85 @@ import ServiceDetail from "../page/ServiceDetail/ServiceDetail";
 import ManageService from "../page/ManageService/ManageService";
 import BookedServices from "../page/BookedServices/BookedServices";
 import Dashboard from "../page/Dashboard/Dashboard";
-
+import ContactUs from "../page/ContactUs/ContactUs";
+import Blog from "../components/Blog/Blog";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <MainLayout></MainLayout>,
-        children: [{
-            path: "/",
-            element: <Home></Home>,
-            meta: { title: "Home - FixBuddy" }
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+        meta: { title: "Home - FixBuddy" },
+      },
+      {
+        path: "/login",
+        element: <LogIn></LogIn>,
+        meta: { title: "LogIn" },
+      },
+      {
+        path: "contact-us",
+        element: <ContactUs></ContactUs>,
+      },
+      {
+        path: "blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/addService",
+        element: (
+          <PrivateRoute>
+            <AddService></AddService>
+          </PrivateRoute>
+        ),
+        meta: { title: "Add Service" },
+      },
+      {
+        path: "/allServices",
+        element: <AllServices></AllServices>,
+        meta: { title: "AllService" },
+      },
+      {
+        path: "/services/:id",
+        element: (
+          <PrivateRoute>
+            <ServiceDetail></ServiceDetail>
+          </PrivateRoute>
+        ),
+        meta: { title: "ServiceDetail" },
+        loader: async ({ params }) => {
+          const response = await fetch(`
+https://home-repair-server.vercel.app/services/${params.id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch movies");
+          }
+          return response.json();
         },
-        {
-            path: "/login",
-            element: <LogIn></LogIn>,
-            meta: { title: "LogIn" }
-        },
-        {
-            path: "/addService",
-            element: <PrivateRoute>
-                <AddService></AddService>
-            </PrivateRoute>,
-            meta: { title: "Add Service" }
-        },
-        {
-            path: "/allServices",
-            element: <AllServices></AllServices>,
-            meta: { title: "AllService" }
-        },
-        {
-            path: "/services/:id",
-            element: <PrivateRoute>
-                <ServiceDetail></ServiceDetail>
-            </PrivateRoute>,
-            meta: { title: "ServiceDetail" },
-            loader: async ({ params }) => {
-                const response = await fetch(`
-https://home-repair-server.vercel.app/services/${params.id}`)
-                if (!response.ok) {
-                    throw new Error("Failed to fetch movies");
-                }
-                return response.json();
-            }
-        },
-        {
-            path: '/dashboard',
-            element: <Dashboard></Dashboard>,
-            meta: { title: "Dashboard" }
-        }
-            ,
-        {
-            path: "/manageService",
-            element: <ManageService></ManageService>,
-            meta: { title: "ManageService" }
-        },
-        {
-            path: "/bookedServices",
-            element: <BookedServices></BookedServices>,
-            meta: { title: "BookedServices" }
-        },
-        {
-            path: "/register",
-            element: <Register></Register>,
-            meta: { title: "Register" }
-        },
-        ],
-    }
-])
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+        meta: { title: "Dashboard" },
+      },
+      {
+        path: "/manageService",
+        element: <ManageService></ManageService>,
+        meta: { title: "ManageService" },
+      },
+      {
+        path: "/bookedServices",
+        element: <BookedServices></BookedServices>,
+        meta: { title: "BookedServices" },
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+        meta: { title: "Register" },
+      },
+    ],
+  },
+]);
 
 export default router;

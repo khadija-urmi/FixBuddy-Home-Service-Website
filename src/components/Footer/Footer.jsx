@@ -41,7 +41,7 @@ const Footer = () => {
                             className="w-full py-2 px-4 rounded-md bg-gray-800 text-white
                              focus:outline-none"/>
                         <button
-                            className="bg-green-500 text-white font-bold py-3 px-8 rounded-md shadow-md transition duration-300 hover:bg-green-600 w-full">
+                            className="bg-blue-500 text-white font-bold py-3 px-8 rounded-md shadow-md transition duration-300 hover:bg-blue-600 w-full">
                             Subscribe
                         </button>
                     </form>

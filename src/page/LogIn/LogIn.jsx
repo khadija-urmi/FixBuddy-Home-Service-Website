@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { BiLogInCircle } from "react-icons/bi";
 
 
 const Login = () => {
@@ -123,9 +124,9 @@ const Login = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full bg-green-500 text-white py-2 px-4 rounded-md shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center space-x-2"
                         >
-                            Log In
+                          <BiLogInCircle className="w-5 h-5 text-white"/><span className="text-center">Log In</span>
                         </button>
                     </form>
                     <div className="my-4 border-b text-center">
