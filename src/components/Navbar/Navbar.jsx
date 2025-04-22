@@ -25,7 +25,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white navbar fixed top-0 left-0 right-0 w-full z-50 shadow-md box-border px-4 lg:px-8">
+    <div className=" bg-white navbar fixed top-0 left-0 right-0 w-full z-50 shadow-md box-border px-4 lg:px-14">
       <div className="navbar-start">
         <div className="dropdown">
           {/* Mobile Menu Button */}
@@ -135,7 +135,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="logo"
-            className="w-5 lg:w-12 h-5 lg:h-12 rounded-full"
+            className="w-5 lg:w-10 h-5 lg:h-10 rounded-full"
           />
           <Link to="/" className="text-sm lg:text-2xl font-bold text-black">
             FixBuddy

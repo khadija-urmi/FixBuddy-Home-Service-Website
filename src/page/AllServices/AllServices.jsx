@@ -57,12 +57,12 @@ const AllServices = () => {
             )}
           </div>
 
-          {/* Show More Button */}
           {services.length > visibleServices && (
             <div className="flex justify-center mt-8">
               <button
                 onClick={handleShowMore}
-                className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                className="bg-blue-600 text-white py-2 px-6 
+                rounded-lg hover:bg-blue-700 transition-colors duration-200"
               >
                 View More
               </button>
