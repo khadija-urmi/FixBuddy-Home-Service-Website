@@ -1,10 +1,5 @@
-
 const Dashboard = () => {
-    return (
-        <div>
-
-        </div>
-    );
+  return <div className="mt-24"></div>;
 };
 
 export default Dashboard;

@@ -4,12 +4,14 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { Hourglass } from "react-loader-spinner";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
-const AllServices = () => {
+const ServiceList = () => {
   const [services, setServices] = useState([]);
   const [visibleServices, setVisibleServices] = useState(6);
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortList, setSortList] = useState("asc");
   const { loading } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -23,15 +25,15 @@ const AllServices = () => {
   }, []);
 
   const handleShowMore = () => {
-    setVisibleServices((prev) => prev + 6);
+    navigate("/allServices");
   };
 
   const handleSortChange = () => {
-    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    setSortList((prev) => (prev === "asc" ? "desc" : "asc"));
   };
 
   const sortedServices = [...services].sort((a, b) => {
-    if (sortOrder === "asc") {
+    if (sortList === "asc") {
       return a.price - b.price;
     } else {
       return b.price - a.price;
@@ -94,7 +96,7 @@ const AllServices = () => {
               <button
                 onClick={handleShowMore}
                 className="bg-blue-600 text-white py-2 px-6 
-                rounded-lg hover:bg-blue-700 transition-colors duration-200"
+            rounded-lg hover:bg-blue-700 transition-colors duration-200"
               >
                 View More
               </button>
@@ -106,4 +108,4 @@ const AllServices = () => {
   );
 };
 
-export default AllServices;
+export default ServiceList;
