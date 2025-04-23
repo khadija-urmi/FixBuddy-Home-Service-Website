@@ -13,6 +13,7 @@ import Dashboard from "../page/Dashboard/Dashboard";
 import ContactUs from "../page/ContactUs/ContactUs";
 import Blog from "../page/Blog/Blog";
 import ErrorPage from "../page/ErrorPage/ErrorPage";
+import BlogDetails from "../page/BlogDetails/BlogDetails";
 
 const router = createBrowserRouter([
   {
@@ -40,13 +41,20 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "blog/:blogId",
+        element: (
+          <PrivateRoute>
+            <BlogDetails></BlogDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/addService",
         element: (
           <PrivateRoute>
             <AddService></AddService>
           </PrivateRoute>
         ),
-        meta: { title: "Add Service" },
       },
       {
         path: "/allServices",

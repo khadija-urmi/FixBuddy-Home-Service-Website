@@ -1,32 +1,35 @@
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { ColorRing } from "react-loader-spinner";
 
 const Blog = () => {
-  const articles = [
-    {
-      title: "The Importance of Regular Home Maintenance",
-      description:
-        "Regular home maintenance helps to extend the lifespan of your property and avoid costly repairs in the future.",
-      image: "https://i.ibb.co.com/RpLCV6r8/111.jpg",
-    },
-    {
-      title: "5 Essential Home Repairs You Shouldn’t Ignore",
-      description:
-        "These common home repairs should be taken seriously to ensure the safety and comfort of your home.",
-      image: "https://i.ibb.co.com/mrs8byvk/112.jpg",
-    },
-    {
-      title: "How to Choose the Right Cleaning Service",
-      description:
-        "Finding a reliable cleaning service can improve the quality of your life. Learn how to choose the best service provider.",
-      image: "https://i.ibb.co.com/vgkyyRC/113.jpg",
-    },
-    {
-      title: "Cost-Effective Home Renovation Ideas",
-      description:
-        "Looking to renovate your home on a budget? Check out these cost-effective home renovation ideas.",
-      image: "https://i.ibb.co.com/20kMqZxS/114.jpg",
-    },
-  ];
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("./BlogData.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setArticles(data.articles);
+        setLoading(false);
+      });
+  });
+
+  if (loading) {
+    return (
+      <div className="text-center mt-16">
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -52,8 +55,9 @@ const Blog = () => {
                 <h3 className="text-xl font-semibold text-gray-800">
                   {article.title}
                 </h3>
-                <p className="text-gray-600 mt-2">{article.description}</p>
-                <a className="text-blue-600 mt-4 inline-block">Read More</a>
+                <button className="btn btn-outline btn-info mt-6">
+                  Read More
+                </button>
               </div>
             </div>
           ))}
