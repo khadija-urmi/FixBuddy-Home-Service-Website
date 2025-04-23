@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ColorRing } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 const Blog = () => {
+  const navigate = useNavigate();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,6 +32,9 @@ const Blog = () => {
       </div>
     );
   }
+  const handleSeeMore = (id) => {
+    navigate(`/blog/${id}`);
+  };
 
   return (
     <>
@@ -55,7 +60,11 @@ const Blog = () => {
                 <h3 className="text-xl font-semibold text-gray-800">
                   {article.title}
                 </h3>
-                <button className="btn btn-outline btn-info mt-6">
+
+                <button
+                  className="btn btn-outline btn-info mt-6"
+                  onClick={() => handleSeeMore(article.id)}
+                >
                   Read More
                 </button>
               </div>
