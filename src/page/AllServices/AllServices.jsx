@@ -9,7 +9,7 @@ const AllServices = () => {
   const [services, setServices] = useState([]);
   const [visibleServices, setVisibleServices] = useState(6);
   const [sortOrder, setSortOrder] = useState("asc");
-  const { loading } = useContext(AuthContext);
+  const { loading, darkMode } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -43,8 +43,12 @@ const AllServices = () => {
       <Helmet>
         <title>Services</title>
       </Helmet>
-      <div className="bg-gray-100 min-h-screen py-4 mt-20">
-        <div className="container mx-auto mt-4">
+      <div
+        className={`min-h-screen py-4  ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }`}
+      >
+        <div className="container mx-auto mt-20">
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center space-x-4">
               <label
