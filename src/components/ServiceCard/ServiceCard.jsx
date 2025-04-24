@@ -1,13 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 
 const ServiceCard = ({ service }) => {
+  const { darkMode } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSeeDetails = (id) => {
     navigate(`/services/${id}`);
   };
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div
+      className={`rounded-lg shadow-md p-6 ${
+        darkMode ? "bg-gray-700 text-white " : "bg-white "
+      }`}
+    >
       {/* Image */}
       <div className="w-full h-48 overflow-hidden rounded-lg mb-4">
         <img

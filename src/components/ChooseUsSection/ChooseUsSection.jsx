@@ -5,7 +5,7 @@ const ChooseUsSection = () => {
   return (
     <section className="mt-16 px-4 lg:px-16">
       <div className="flex flex-col md:flex-row items-center gap-16">
-        <div className="flex-1 w-full bg-white border border-gray-200 rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex-1 w-full  border rounded-lg shadow-sm sm:p-8 bg-gray-800 border-gray-700">
           <h3 className="text-2xl sm:text-3xl font-extrabold text-center text-gray-800 dark:text-white mb-6">
             Why Choose Us?
           </h3>

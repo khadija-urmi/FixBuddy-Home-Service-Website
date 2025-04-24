@@ -1,21 +1,24 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { NavLink, Link } from "react-router-dom";
-import { IoClose, IoMenu } from "react-icons/io5";
 import logo from "../../assets/home-logo.jpg";
+import DarkModeToggle from "react-dark-mode-toggle";
+import { IoClose, IoMenu } from "react-icons/io5";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, darkMode, setDarkMode } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
   const toggleDashboard = () => setDashboardOpen(!dashboardOpen);
 
   const closeMenu = () => {
     setMenuOpen(false);
     setDashboardOpen(false);
   };
+
   const getNavLinkClass = ({ isActive }) => {
     return `${
       isActive
@@ -25,7 +28,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" bg-white navbar fixed top-0 left-0 right-0 w-full z-50 shadow-md box-border px-4 lg:px-14">
+    <div
+      className={`navbar fixed top-0 left-0 right-0 w-full z-50 shadow-md box-border px-4 lg:px-14 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+      }`}
+    >
       <div className="navbar-start">
         <div className="dropdown">
           {/* Mobile Menu Button */}
@@ -41,14 +48,14 @@ const Navbar = () => {
               <IoMenu className="w-5 h-5" />
             )}
           </div>
-          {/* Mobile  Dropdown Menu  */}
+          {/* Mobile Dropdown Menu */}
           {menuOpen && (
             <div
               className={`absolute z-50 left-0 right-0 top-8 shadow-lg p-2  rounded-lg ${
                 menuOpen ? "" : "hidden"
               }`}
             >
-              <ul className=" menu-sm dropdown-content rounded-box z-[1] mt-3 w-48 p-2 shadow bg-gray-200 space-y-2">
+              <ul className="menu-sm dropdown-content rounded-box z-[1] mt-3 w-48 p-2 shadow bg-gray-200 space-y-2">
                 <li>
                   <NavLink
                     to="/"
@@ -137,12 +144,13 @@ const Navbar = () => {
             alt="logo"
             className="w-5 lg:w-10 h-5 lg:h-10 rounded-full"
           />
-          <Link to="/" className="text-sm lg:text-2xl font-bold text-black">
+          <Link to="/" className="text-sm lg:text-2xl font-bold">
             FixBuddy
           </Link>
         </div>
       </div>
-      {/*  large device */}
+
+      {/* Large Screen Menu */}
       <div className="navbar-center hidden lg:flex">
         <ul className="px-1 gap-5 flex">
           <li>
@@ -156,11 +164,6 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/contact-us" className={getNavLinkClass}>
-              Contact Us
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/blog" className={getNavLinkClass}>
               Blogs
             </NavLink>
@@ -170,14 +173,12 @@ const Navbar = () => {
               <NavLink
                 to="dashboard"
                 className={`${dashboardOpen ? "underline" : ""}`}
-                onClick={() => {
-                  toggleDashboard();
-                }}
+                onClick={toggleDashboard}
               >
                 Dashboard
               </NavLink>
               {dashboardOpen && (
-                <ul className="absolute left-0 top-5 mt-2 bg-white  rounded-md shadow-lg p-2 w-40 z-50">
+                <ul className="absolute left-0 top-5 mt-2 bg-white rounded-md shadow-lg p-2 w-40 z-50">
                   <li>
                     <NavLink
                       to="/addService"
@@ -211,8 +212,12 @@ const Navbar = () => {
           )}
         </ul>
       </div>
+
       <div className="navbar-end">
         <div className="flex items-center space-x-2 md:space-x-4">
+          {/* Dark Mode Toggle Button */}
+          <DarkModeToggle onChange={setDarkMode} checked={darkMode} size={60} />
+
           {user ? (
             <div className="flex items-center space-x-4">
               <div className="relative group">

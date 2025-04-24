@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
+
 const CustomerReview = () => {
+  const { darkMode } = useContext(AuthContext);
   const reviews = [
     {
       text: "Amazing service! Highly recommend.",
@@ -41,7 +45,11 @@ const CustomerReview = () => {
         {reviews.map((review, index) => (
           <div
             key={index}
-            className="bg-white p-6 shadow-lg   border-2  border-l-blue-300 rounded-md"
+            className={`p-6 shadow-lg   border-2  border-l-blue-300 rounded-md ${
+              darkMode
+                ? "bg-gray-800 border-2 border-gray-800 border-l-blue-300  text-white"
+                : "bg-white"
+            }`}
           >
             <div className="flex items-center mb-4">
               <img
@@ -51,7 +59,7 @@ const CustomerReview = () => {
               />
               <p className="font-bold">{review.name}</p>
             </div>
-            <p className="text-gray-700">{review.text}</p>
+            <p className="text-gray-500">{review.text}</p>
           </div>
         ))}
       </div>

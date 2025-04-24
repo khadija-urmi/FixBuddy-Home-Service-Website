@@ -45,16 +45,11 @@ const ServiceList = () => {
       <Helmet>
         <title>Services</title>
       </Helmet>
-      <div className="bg-gray-100 min-h-screen py-4 mt-20">
+      <div className=" min-h-screen py-4 mt-20">
         <div className="container mx-auto mt-4">
           <div className="flex justify-between items-center mb-6">
+            {/* Sort Dropdown */}
             <div className="flex items-center space-x-4">
-              <label
-                htmlFor="sort"
-                className="text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Sort by Price:
-              </label>
               <select
                 id="sort"
                 onChange={handleSortChange}
