@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import userImg from "../../assets/user.png";
 
-const Dashboard = () => {
+const Profile = () => {
   const { user, setUser, updateUserProfile, darkMode } =
     useContext(AuthContext);
 
@@ -34,15 +34,6 @@ const Dashboard = () => {
         setSuccess("");
       });
   };
-
-  if (!user) {
-    return (
-      <div>
-        <p>No user found. Please log in.</p>
-      </div>
-    );
-  }
-
   return (
     <div
       className={`min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8  ${
@@ -128,4 +119,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Profile;
