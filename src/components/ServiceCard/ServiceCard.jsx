@@ -27,7 +27,11 @@ const ServiceCard = ({ service }) => {
         {/*  Name */}
         <h3 className="text-xl font-semibold">{service.serviceName}</h3>
         {/*  Description */}
-        <p className="text-sm text-gray-600 mt-2">
+        <p
+          className={`text-sm  mt-2 ${
+            darkMode ? "text-white" : "text-gray-600"
+          }`}
+        >
           {service.description.length > 100
             ? `${service.description.substring(0, 100)}...`
             : service.description}
@@ -42,7 +46,11 @@ const ServiceCard = ({ service }) => {
           />
           <div>
             <h4 className="text-md font-medium">{service.provider.userName}</h4>
-            <p className="text-sm text-gray-500">
+            <p
+              className={`text-sm  mt-2 ${
+                darkMode ? "text-white" : "text-gray-500"
+              }`}
+            >
               {service.provider.userEmail}
             </p>
           </div>

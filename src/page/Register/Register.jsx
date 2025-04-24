@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 const Register = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { darkMode, createUser, updateUserProfile } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,6 +21,7 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const validationPassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
@@ -36,10 +37,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
     const { name, email, password, photoURL } = formData;
-    console.log(name, email, password, photoURL);
-
     const passwordValidated = validationPassword(password);
     if (passwordValidated) {
       setError(passwordValidated);
@@ -50,14 +48,9 @@ const Register = () => {
       await createUser(email, password);
       await updateUserProfile({ displayName: name, email: email });
 
-      //add new user in db
       const response = await axios.post(
         "https://home-repair-server.vercel.app/register",
-        {
-          name,
-          email,
-          password,
-        }
+        { name, email, password }
       );
 
       if (response.status === 200) {
@@ -87,16 +80,30 @@ const Register = () => {
   return (
     <>
       <Helmet>Register</Helmet>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+      <div
+        className={`min-h-screen flex items-center justify-center ${
+          darkMode ? "bg-gray-900" : "bg-gray-100"
+        }`}
+      >
+        <div
+          className={`w-full max-w-md rounded-lg shadow-lg p-6 ${
+            darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+          }`}
+        >
+          <h2
+            className={`text-2xl font-bold text-center mb-6 ${
+              darkMode ? "text-white" : "text-gray-800"
+            }`}
+          >
             Register
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-white" : "text-gray-700"
+                }`}
               >
                 Name
               </label>
@@ -107,14 +114,18 @@ const Register = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={`mt-1 block w-full px-4 py-2 border ${
+                  darkMode ? "border-gray-700" : "border-gray-300"
+                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-white" : "text-gray-700"
+                }`}
               >
                 Email
               </label>
@@ -125,14 +136,18 @@ const Register = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={`mt-1 block w-full px-4 py-2 border ${
+                  darkMode ? "border-gray-700" : "border-gray-300"
+                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-white" : "text-gray-700"
+                }`}
               >
                 Password
               </label>
@@ -143,14 +158,18 @@ const Register = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={`mt-1 block w-full px-4 py-2 border ${
+                  darkMode ? "border-gray-700" : "border-gray-300"
+                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
               />
             </div>
 
             <div>
               <label
                 htmlFor="photoURL"
-                className="block text-sm font-medium text-gray-700"
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-white" : "text-gray-700"
+                }`}
               >
                 Photo URL
               </label>
@@ -161,25 +180,20 @@ const Register = () => {
                 value={formData.photoURL}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className={`mt-1 block w-full px-4 py-2 border ${
+                  darkMode ? "border-gray-700" : "border-gray-300"
+                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500`}
             >
               Register
             </button>
           </form>
-          {error && (
-            <div
-              className="mt-4 text-sm
-                     text-red-600"
-            >
-              {error}
-            </div>
-          )}
+          {error && <div className="mt-4 text-sm text-red-600">{error}</div>}
         </div>
       </div>
     </>
