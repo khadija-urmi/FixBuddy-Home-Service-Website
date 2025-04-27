@@ -15,6 +15,7 @@ import ErrorPage from "../page/ErrorPage/ErrorPage";
 import BlogDetails from "../page/BlogDetails/BlogDetails";
 import DashboardLayout from "../layout/DashboardLayout/DashboardLayout";
 import Profile from "../page/Profile/Profile";
+import Dashboard from "../page/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -74,47 +75,51 @@ const router = createBrowserRouter([
           return response.json();
         },
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
       {
-        path: "/dashboard",
+        path: "",
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "addService",
         element: (
           <PrivateRoute>
-            <DashboardLayout></DashboardLayout>
+            <AddService></AddService>
           </PrivateRoute>
         ),
-        children: [
-          {
-            path: "addService",
-            element: (
-              <PrivateRoute>
-                <AddService></AddService>
-              </PrivateRoute>
-            ),
-          },
-          {
-            path: "manageService",
-            element: (
-              <PrivateRoute>
-                <ManageService></ManageService>
-              </PrivateRoute>
-            ),
-          },
-          {
-            path: "bookedServices",
-            element: (
-              <PrivateRoute>
-                <BookedServices></BookedServices>
-              </PrivateRoute>
-            ),
-          },
-          {
-            path: "profile",
-            element: (
-              <PrivateRoute>
-                <Profile></Profile>
-              </PrivateRoute>
-            ),
-          },
-        ],
+      },
+      {
+        path: "manageService",
+        element: (
+          <PrivateRoute>
+            <ManageService></ManageService>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "bookedServices",
+        element: (
+          <PrivateRoute>
+            <BookedServices></BookedServices>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
     ],
   },
